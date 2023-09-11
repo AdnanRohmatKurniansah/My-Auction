@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
 {
@@ -12,7 +13,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.barang.index', [
+            'barangs' => Barang::orderBy('id', 'desc')->get()
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.barang.create');
     }
 
     /**
@@ -28,7 +31,23 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama' => 'required|max:255',
+            'tgl' => 'required',
+            'harga_awal' => 'required',
+            'deskripsi' => 'required|max:255|min:5',
+            'image' => 'image|file|max:2048'
+        ]);
+
+        if($request->file('image')) {
+            $data['image'] = $request->file('image')->store('barang-images');
+        } 
+
+        $data['harga_awal'] = (int)$data['harga_awal'];
+
+        Barang::create($data);
+
+        return redirect('/dashboard/barang')->with('success', 'Berhasil tambah data baru');
     }
 
     /**
@@ -44,7 +63,9 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        //
+        return view('dashboard.barang.edit', [
+            'barang' => $barang
+        ]);
     }
 
     /**
@@ -52,7 +73,26 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        //
+        $data = $request->validate([
+            'nama' => 'required|max:255',
+            'tgl' => 'required',
+            'harga_awal' => 'required',
+            'deskripsi' => 'required|max:255|min:5',
+            'image' => 'image|file|max:2048'
+        ]);
+
+        if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $data['image'] = $request->file('image')->store('barang-images');
+        }   
+
+        $data['harga_awal'] = (int)$data['harga_awal'];
+
+        $barang->update($data);
+
+        return redirect('/dashboard/barang')->with('info', 'Berhasil tambah data baru');
     }
 
     /**
@@ -60,6 +100,12 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        if ($barang->image) {
+            Storage::delete($barang->image);
+        }
+
+        $barang->delete();
+
+        return redirect('/dashboard/barang')->with('success', 'Berhasil hapus barang');
     }
 }

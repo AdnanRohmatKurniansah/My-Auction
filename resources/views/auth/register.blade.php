@@ -13,7 +13,7 @@ style="background:url(/assets/admin/images/big/auth-bg.jpg) no-repeat center cen
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="nama_lengkap">Nama Lengkap</label>
-                                <input class="form-control @error('nama_lengkap') is-invalid @enderror" required name="nama_lengkap" id="nama_lengkap" type="text"
+                                <input class="form-control @error('nama_lengkap') is-invalid @enderror" value="{{ old('nama_lengkap') }}" required name="nama_lengkap" id="nama_lengkap" type="text"
                                     placeholder="Masukkan Nama Lengkap">
                                 @error('nama_lengkap')
                                     <div class="invalid-feedback justify-content-start text-left">
@@ -25,7 +25,7 @@ style="background:url(/assets/admin/images/big/auth-bg.jpg) no-repeat center cen
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="username">Username</label>
-                                <input class="form-control @error('username') is-invalid @enderror" required name="username" id="username" type="text"
+                                <input class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required name="username" id="username" type="text"
                                     placeholder="Masukkan Username">
                                 @error('username')
                                     <div class="invalid-feedback justify-content-start text-left">
@@ -37,7 +37,7 @@ style="background:url(/assets/admin/images/big/auth-bg.jpg) no-repeat center cen
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="noTelp">No Telp</label>
-                                <input class="form-control @error('noTelp') is-invalid @enderror" required name="noTelp" id="noTelp" type="text"
+                                <input class="form-control @error('noTelp') is-invalid @enderror" value="{{ old('noTelp') }}" required name="noTelp" id="noTelp" type="text"
                                     placeholder="Masukkan No Telp">
                                 @error('noTelp')
                                     <div class="invalid-feedback justify-content-start text-left">

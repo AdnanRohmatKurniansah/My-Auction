@@ -13,7 +13,7 @@ style="background:url(/assets/admin/images/big/auth-bg.jpg) no-repeat center cen
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="username">Username</label>
-                                <input class="form-control @error('username') is-invalid @enderror" id="username" name="username" type="text"
+                                <input class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" id="username" name="username" type="text"
                                     placeholder="Masukkan Username" required>
                                 @error('username')
                                     <div class="invalid-feedback justify-content-start text-left">
