@@ -13,4 +13,8 @@ class Masyarakat extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $guarded = ['id'];
+
+    public function lelang() {
+        return $this->hasOne(Lelang::class);
+    }
 }

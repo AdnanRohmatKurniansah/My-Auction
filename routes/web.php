@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\LelangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +34,12 @@ Route::middleware(['auth:petugas'])->prefix('dashboard')->group(function() {
         return view('dashboard.index');
     });
     Route::resource('/barang', BarangController::class);
+    Route::get('/lelang', [LelangController::class, 'index']);
+    Route::middleware(['petugas'])->group(function() {
+        Route::get('/lelang/create', [LelangController::class, 'create']);
+        Route::post('/lelang', [LelangController::class, 'store']);
+        Route::put('/lelang/{lelang}', [LelangController::class, 'close']);
+        Route::delete('/lelang/{lelang}', [LelangController::class, 'destroy']);
+        Route::get('/lelang/{lelang}', [LelangController::class, 'show']);
+    });
 });

@@ -50,17 +50,6 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
-                                    <label class="form-label text-dark" for="tgl">Tanggal</label>
-                                    <input class="form-control @error('tgl') is-invalid @enderror" value="{{ old('tgl') }}" required name="tgl" id="tgl" type="date">
-                                    @error('tgl')
-                                        <div class="invalid-feedback justify-content-start text-left">
-                                            {{ $message }}
-                                        </div>            
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group mb-3">
                                     <label class="form-label text-dark" for="deskripsi">Deskripsi</label>
                                     <textarea class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Masukkan deskripsi barang" name="deskripsi" id="deskripsi" cols="30" rows="5" required autofocus>{{ old('deskripsi') }}</textarea>
                                     @error('deskripsi')

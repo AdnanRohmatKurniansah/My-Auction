@@ -33,7 +33,6 @@ class BarangController extends Controller
     {
         $data = $request->validate([
             'nama' => 'required|max:255',
-            'tgl' => 'required',
             'harga_awal' => 'required',
             'deskripsi' => 'required|max:255|min:5',
             'image' => 'image|file|max:2048'
@@ -75,7 +74,6 @@ class BarangController extends Controller
     {
         $data = $request->validate([
             'nama' => 'required|max:255',
-            'tgl' => 'required',
             'harga_awal' => 'required',
             'deskripsi' => 'required|max:255|min:5',
             'image' => 'image|file|max:2048'
@@ -92,7 +90,7 @@ class BarangController extends Controller
 
         $barang->update($data);
 
-        return redirect('/dashboard/barang')->with('info', 'Berhasil tambah data baru');
+        return redirect('/dashboard/barang')->with('info', 'Berhasil edit data');
     }
 
     /**

@@ -15,7 +15,7 @@
                             class="hide-menu">Barang
                         </span></a>
                 </li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="/dashboard"
+                <li class="sidebar-item {{ Request::is('dashboard/lelang*') ? 'selected' : '' }}"> <a class="sidebar-link" href="/dashboard/lelang"
                         aria-expanded="false"><i data-feather="pocket" class="feather-icon"></i><span
                             class="hide-menu">Lelang
                         </span></a>

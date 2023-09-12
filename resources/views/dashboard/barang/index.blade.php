@@ -42,9 +42,9 @@
                                     <td>
                                         <img src="{{ asset('storage/' . $barang->image) }}" width="80" alt="">
                                     </td>
-                                    <td>{{ $barang->tgl }}</td>
+                                    <td>{{ $barang->created_at->format('d M Y') }}</td>
                                     <td>Rp. {{ number_format($barang->harga_awal, 0, ',', '.') }}</td>
-                                    <td class="d-flex fs-2">
+                                    <td class="d-flex fs-1">
                                         <a href="/dashboard/barang/{{ $barang->id }}/edit" style="margin-right: 10px">
                                           <i class="badge-circle badge-circle-light-secondary" data-feather="edit"></i>
                                         </a>
