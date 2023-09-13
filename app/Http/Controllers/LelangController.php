@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\History;
 use App\Models\Lelang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ class LelangController extends Controller
 {
     public function index() {
         return view('dashboard.lelang.index', [
-            'lelangs' => Lelang::where('status', 'dibuka')->orderBy('id', 'desc')->get()
+            'lelangs' => Lelang::orderBy('id', 'desc')->get()
         ]);
     }
 
@@ -43,8 +44,13 @@ class LelangController extends Controller
     }
 
     public function close(Lelang $lelang) {
+        $bestOffer = History::where('lelang_id', $lelang->id)
+            ->orderBy('nominal', 'desc')->first();
+
         $lelang->update([
-            'status' => 'ditutup'
+            'status' => 'ditutup',
+            'harga_akhir' => $bestOffer->nominal,
+            'masyarakat_id' => $bestOffer->masyarakat_id
         ]);
 
         return back()->with('info', 'Lelang berhasil ditutup');

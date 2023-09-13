@@ -22,18 +22,21 @@
             <h5 class="pb-4 d-flex justify-content-center">Tawarkan harga dan menangkan lelang!</h5>
             <div class="row">
                 @foreach ($lelangs as $lelang)
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm">
-                        <img src="{{ asset('storage/' . $lelang->barang->image) }}" class="card-img-top" style="min-height: 230px; max-height: 230px" alt="...">
-                        <div class="card-body">
-                        <h6 class="card-title">Status: <span class="badge {{ $lelang->status == 'dibuka' ? 'bg-primary' : 'bg-danger' }}">{{ $lelang->status }}</span></h6>
-                        <h6 class="card-title">Nama barang: {{ $lelang->barang->nama }}</h6>
-                        <h6 class="card-text">Harga barang: Rp. {{ number_format($lelang->barang->harga_awal, 0, ',', '.') }}</h6>
-                        <a href="/lelang/{{ $lelang->id }}" class="btn btn-primary">{{ $lelang->status == 'dibuka' ? 'Tawar' : 'Lihat hasil' }}</a>
+                    <div class="col-md-4 mb-3">
+                        <div class="card shadow-sm">
+                            <img src="{{ asset('storage/' . $lelang->barang->image) }}" class="card-img-top" style="min-height: 230px; max-height: 230px" alt="...">
+                            <div class="card-body">
+                            <h6 class="card-title">Status: <span class="badge {{ $lelang->status == 'dibuka' ? 'bg-primary' : 'bg-danger' }}">{{ $lelang->status }}</span></h6>
+                            <h6 class="card-title">Nama barang: {{ $lelang->barang->nama }}</h6>
+                            <h6 class="card-text">Harga barang: Rp. {{ number_format($lelang->barang->harga_awal, 0, ',', '.') }}</h6>
+                            <a href="/lelang/{{ $lelang->id }}" class="btn btn-primary">{{ $lelang->status == 'dibuka' ? 'Tawar' : 'Lihat hasil' }}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+            <div class="d-flex mt-5 justify-content-center">
+                {{ $lelangs->links() }}
             </div>
         </div>
     </div>
@@ -44,32 +47,33 @@
             <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama barang</th>
+                    <th scope="col">Pemenang</th>
+                    <th scope="col">Harga awal</th>
+                    <th scope="col">Harga tertinggi</th>
+                    <th scope="col">Tanggal</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                    @php
+                        $histories = \App\Models\Lelang::where('status', 'ditutup')->paginate(10);
+                    @endphp
+                    @foreach ($histories as $history)
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <th>{{ $history->masyarakat->nama_lengkap }}</th>
+                        <td>{{ $history->barang->nama }}</td>
+                        <td>Rp. {{ number_format($history->barang->harga_awal, 0, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($history->harga_akhir, 0, ',', '.') }}</td>
+                        <td>{{ $history->updated_at->format('d M Y') }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+            <div class="d-flex mt-5 justify-content-center">
+                {{ $histories->links() }}
+            </div>
         </div>
     </div>
 </div>

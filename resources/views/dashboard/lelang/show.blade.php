@@ -43,7 +43,7 @@
                             <h4 class="card-title mb-3">Informasi lelang</h4>
                             <ul>
                                 <li class="mb-3"><span class="fw-bold">Nama petugas:</span> {{ $lelang->petugas->nama_petugas }}</li>
-                                <li class="mb-3"><span class="fw-bold">Nama masyarakat:</span> {{ $lelang->masyarakat->nama_lengkap ?? 'Belum ada' }}</li>
+                                <li class="mb-3"><span class="fw-bold">Pemenang:</span> {{ $lelang->masyarakat->nama_lengkap ?? 'Belum ada' }}</li>
                                 <li class="mb-3"><span class="fw-bold">Harga akhir:</span> 
                                     @if ($lelang->harga_akhir == null)  
                                         Belum ada

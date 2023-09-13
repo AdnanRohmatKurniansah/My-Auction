@@ -20,6 +20,11 @@
                             class="hide-menu">Lelang
                         </span></a>
                 </li>
+                <li class="sidebar-item {{ Request::is('dashboard/administrator*') ? 'selected' : '' }}"> <a class="sidebar-link" href="/dashboard/administrator"
+                        aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
+                            class="hide-menu">Administrator
+                        </span></a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

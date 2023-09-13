@@ -65,6 +65,7 @@
                                             <i class="badge-circle badge-circle-light-secondary" data-feather="eye"></i>
                                         </a>
                                         @if (Auth::guard('petugas')->user()->level_id == 1)
+                                            @if ($lelang->status == 'dibuka')
                                             <form action="/dashboard/lelang/{{ $lelang->id }}" method="post">
                                                 @method('put')
                                                 @csrf
@@ -72,6 +73,7 @@
                                                 <i data-feather="power"></i>
                                                 </button>
                                             </form>
+                                            @endif
                                             <form action="/dashboard/lelang/{{ $lelang->id }}" method="post">
                                             @method('delete')
                                             @csrf

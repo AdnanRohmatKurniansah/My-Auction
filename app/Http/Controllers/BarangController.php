@@ -32,9 +32,9 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nama' => 'required|max:255',
-            'harga_awal' => 'required',
-            'deskripsi' => 'required|max:255|min:5',
+            'nama' => 'required|max:25',
+            'harga_awal' => 'required|max:20',
+            'deskripsi' => 'required|max:100|min:5',
             'image' => 'image|file|max:2048'
         ]);
 
@@ -73,9 +73,9 @@ class BarangController extends Controller
     public function update(Request $request, Barang $barang)
     {
         $data = $request->validate([
-            'nama' => 'required|max:255',
-            'harga_awal' => 'required',
-            'deskripsi' => 'required|max:255|min:5',
+            'nama' => 'required|max:25',
+            'harga_awal' => 'required|max:20',
+            'deskripsi' => 'required|max:100|min:5',
             'image' => 'image|file|max:2048'
         ]);
 
