@@ -11,7 +11,7 @@ class LelangController extends Controller
 {
     public function index() {
         return view('dashboard.lelang.index', [
-            'lelangs' => Lelang::orderBy('id', 'desc')->get()
+            'lelangs' => Lelang::where('status', 'dibuka')->orderBy('id', 'desc')->get()
         ]);
     }
 

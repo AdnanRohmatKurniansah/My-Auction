@@ -21,4 +21,8 @@ class Lelang extends Model
     public function barang() {
         return $this->belongsTo(Barang::class);
     }
+
+    public function penawaran() {
+        return $this->hasMany(Penawaran::class);
+    }
 }

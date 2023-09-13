@@ -3,6 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LelangController;
+use App\Http\Controllers\PenawaranController;
+use App\Models\Lelang;
+use App\Models\Penawaran;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +20,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'title' => 'Home',
+        'lelangs' => Lelang::orderBy('id', 'desc')->get()
+    ]);
+});
+
+Route::get('/lelang/{lelang}', function(Lelang $lelang) {
+    return view('detailLelang', [
+        'title' => 'Detail lelang',
+        'lelang' => $lelang,
+        'penawarans' => Penawaran::where('lelang_id', $lelang->id)
+            ->orderBy('nominal', 'desc')
+            ->get()
+    ]);
+});
+
+Route::middleware(['auth:masyarakat'])->group(function() {
+    Route::post('/penawaran', [PenawaranController::class, 'tawar']);
+    Route::delete('/penawaran/{penawaran}', [PenawaranController::class, 'batal']);
 });
 
 Route::middleware(['guest'])->prefix('auth')->group(function() {
