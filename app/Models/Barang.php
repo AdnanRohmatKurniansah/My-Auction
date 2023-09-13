@@ -12,4 +12,8 @@ class Barang extends Model
     public function lelang() {
         return $this->hasOne(Lelang::class);
     }
+
+    public function history() {
+        return $this->belongsTo(History::class);
+    }
 }

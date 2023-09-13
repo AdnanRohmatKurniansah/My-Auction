@@ -5,24 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lelang extends Model
+class History extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
-    public function petugas() {
-        return $this->belongsTo(Petugas::class);
-    }
-
+    
     public function masyarakat() {
         return $this->belongsTo(Masyarakat::class);
     }
 
-    public function barang() {
-        return $this->belongsTo(Barang::class);
+    public function lelang() {
+        return $this->belongsTo(Lelang::class);
     }
 
-    public function history() {
-        return $this->hasMany(History::class);
+    public function barang() {
+        return $this->hasOne(Barang::class);
     }
 }
