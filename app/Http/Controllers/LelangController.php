@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\History;
 use App\Models\Lelang;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,5 +61,21 @@ class LelangController extends Controller
         $lelang->delete();
 
         return back()->with('success', 'Lelang dihapus');
+    }
+
+    public function generateLaporan(Request $request) {
+        $dari = $request->dari;
+        $sampai = $request->sampai;
+
+        $data = Lelang::whereBetween('updated_at', [$dari, $sampai])->get();
+
+        if ($data->count() < 1) {
+            return back()->with('error', 'Lelang tidak ditemukan');
+        }
+
+        $pdf = Pdf::loadView('dashboard.laporan', [
+            'data' => $data
+        ]);
+        return $pdf->download('laporan.pdf');
     }
 }

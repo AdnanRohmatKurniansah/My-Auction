@@ -18,9 +18,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            @if (Auth::guard('petugas')->user()->level_id == 1)
-                <a class="btn btn-primary mb-3" href="/dashboard/lelang/create">Buka lelang baru</a>
-            @endif
+            <div class="row">
+                <div class="col">
+                    @if (Auth::guard('petugas')->user()->level_id == 1)
+                        <a class="btn btn-primary mb-3" href="/dashboard/lelang/create">Buka lelang baru</a>
+                    @endif
+                </div>
+                <div class="col text-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Generate Laporan
+                    </button>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Data barang</h4>
@@ -93,5 +102,37 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Generate laporan</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/dashboard/lelang/generate" method="post">
+            @csrf
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark" for="dari">Dari: </label>
+                        <input class="form-control" required name="dari" id="dari" type="date"
+                            placeholder="Dari">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark" for="sampai">Sampai: </label>
+                        <input class="form-control" required name="sampai" id="sampai" type="date"
+                            placeholder="Sampai">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Generate</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 @endsection
