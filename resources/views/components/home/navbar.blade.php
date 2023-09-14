@@ -18,6 +18,8 @@
           <ul class="dropdown-menu">
             @if (Auth::guard('petugas')->check())
               <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> Dashboard</a></li>
+            @else 
+              <li><a class="dropdown-item" href="/histories/won"><i class="bi bi-trophy"></i> History menang</a></li>
             @endif
             <li>
               <form action="/logout" method="post">

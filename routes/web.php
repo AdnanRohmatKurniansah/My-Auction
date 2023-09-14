@@ -6,6 +6,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LelangController;
 use App\Models\History;
 use App\Models\Lelang;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,14 @@ Route::get('/lelang/{lelang}', function(Lelang $lelang) {
 Route::middleware(['auth:masyarakat'])->group(function() {
     Route::post('/histories', [HistoryController::class, 'tawar']);
     Route::delete('/histories/{history}', [historieController::class, 'batal']);
+    Route::get('/histories/won', function() {
+        $auth = Auth::guard('masyarakat')->user();
+        return view('history', [
+            'title' => 'Lelang yang dimenangkan',
+            'histories' => Lelang::where('status', 'ditutup')
+                ->where('masyarakat_id', $auth->id)->paginate(10)
+        ]);
+    });
 });
 
 Route::middleware(['guest'])->prefix('auth')->group(function() {
