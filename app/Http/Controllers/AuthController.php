@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Petugas;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +24,10 @@ class AuthController extends Controller
 
     public function store(Request $request) {
         $data = $request->validate([
-            'nama_lengkap' => 'required|max:255|min:3',
-            'username' => 'required|max:255|min:3|unique:masyarakats',
+            'nama_lengkap' => 'required|max:25|min:3',
+            'username' => 'required|max:25|min:3|unique:masyarakats',
             'noTelp' => 'required|max:25',
-            'password' => 'required|min:5|max:255'
+            'password' => 'required|min:5|max:25'
         ]);
 
         $data['password'] = Hash::make($data['password']);
@@ -38,8 +39,8 @@ class AuthController extends Controller
 
     public function authenticate(Request $request) {
         $data = $request->validate([
-            'username' => 'required|max:255|min:3',
-            'password' => 'required|min:5|max:255'
+            'username' => 'required|max:25|min:3',
+            'password' => 'required|min:5|max:25'
         ]);
     
         if ($request->role == 'masyarakat') {
@@ -71,4 +72,31 @@ class AuthController extends Controller
         return redirect('/')->with('info', 'Berhasil logout');
     }
     
+    public function petugas() {
+        return view('dashboard.petugas.index', [
+            'petugases' => Petugas::orderBy('id', 'desc')->get()
+        ]);
+    }
+    
+    public function tambahPetugas() {
+        return view('dashboard.petugas.create');
+    }
+    public function storePetugas(Request $request) {
+        $data = $request->validate([
+            'nama_petugas' => 'required|max:25',
+            'username' => 'required|max:25',
+            'password' => 'required',
+            'level_id' => 'required'
+        ]);
+
+        Petugas::create($data);
+
+        return redirect('/dashboard/petugas')->with('success', 'Petugas baru ditambahkan');
+    }
+
+    public function hapusPetugas(Petugas $petugas) {
+        $petugas->delete();
+
+        return back()->with('success', 'Petugas berhasil dihapus');
+    }
 }

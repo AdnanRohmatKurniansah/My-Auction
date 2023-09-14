@@ -4,10 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LelangController;
-use App\Http\Controllers\PenawaranController;
 use App\Models\History;
 use App\Models\Lelang;
-use App\Models\Penawaran;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,7 +53,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:masy
 
 Route::middleware(['auth:petugas'])->prefix('dashboard')->group(function() {
     Route::get('/', function() {
-        return view('dashboard.index');
+        return view('dashboard.index', [
+            'lelang' => Lelang::select(DB::raw('DATE_FORMAT(created_at, "%M") AS date'), DB::raw('COUNT(*) AS count'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
+            ->get()
+        ]);
     });
     Route::resource('/barang', BarangController::class);
     Route::get('/lelang', [LelangController::class, 'index']);
@@ -64,5 +68,10 @@ Route::middleware(['auth:petugas'])->prefix('dashboard')->group(function() {
         Route::put('/lelang/{lelang}', [LelangController::class, 'close']);
         Route::delete('/lelang/{lelang}', [LelangController::class, 'destroy']);
         Route::get('/lelang/{lelang}', [LelangController::class, 'show']);
+        Route::post('/lelang/generate', [LelangController::class, 'generateLaporan']);        
+        Route::get('/petugas', [AuthController::class, 'petugas']);
+        Route::get('/petugas/create', [AuthController::class, 'tambahPetugas']);
+        Route::post('/petugas', [AuthController::class, 'storePetugas']);
+        Route::delete('/petugas/{petugas}', [AuthController::class, 'hapusPetugas']);
     });
 });

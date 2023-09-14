@@ -20,11 +20,13 @@
                             class="hide-menu">Lelang
                         </span></a>
                 </li>
-                <li class="sidebar-item {{ Request::is('dashboard/administrator*') ? 'selected' : '' }}"> <a class="sidebar-link" href="/dashboard/administrator"
+                @if (Auth::guard('petugas')->user()->level_id == 1)
+                <li class="sidebar-item {{ Request::is('dashboard/petugas*') ? 'selected' : '' }}"> <a class="sidebar-link" href="/dashboard/petugas"
                         aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
-                            class="hide-menu">Administrator
+                            class="hide-menu">Petugas
                         </span></a>
                 </li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
