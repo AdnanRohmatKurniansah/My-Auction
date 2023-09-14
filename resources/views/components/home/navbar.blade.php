@@ -13,13 +13,11 @@
         <div class="dropdown">
           @if (Auth::guard('petugas')->check() || Auth::guard('masyarakat')->check())
           <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="/assets/dist/img/user.jpg" width="40" alt="">
+            Halo, {{ Auth::guard('petugas')->check() ? Auth::guard('petugas')->user()->nama_petugas : (Auth::guard('masyarakat')->check() ? Auth::guard('masyarakat')->user()->nama_lengkap : '') }}
           </button>
           <ul class="dropdown-menu">
             @if (Auth::guard('petugas')->check())
-              <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard</a></li>
-            @else
-              <li><a class="dropdown-item" href=""><i class="bi bi-person-circle"></i> My Profile</a></li>
+              <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> Dashboard</a></li>
             @endif
             <li>
               <form action="/logout" method="post">

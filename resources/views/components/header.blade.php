@@ -8,7 +8,7 @@
             <div class="navbar-brand">
                 <!-- Logo icon -->
                 <a href="/dashboard">
-                    <img src="/assets/admin/images/freedashDark.svg" alt="" class="img-fluid">
+                    <h1 class="fw-bold">Auction.</h1>
                 </a>
             </div>
 

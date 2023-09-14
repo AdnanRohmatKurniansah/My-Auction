@@ -51,10 +51,12 @@
             @include('components.footer')
         </div>
     </div>
-    <script src="/assets/admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/admin/libs/jquery/dist/jquery.min.js?v=1"></script>
     <script src="/assets/admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- apps -->
     <!-- apps -->
+    <script src="/assets/dist/js/pages/chartjs/chartjs.init.js?v=5"></script>
+    <script src="/assets/admin/libs/chart.js/dist/Chart.min.js?v=4"></script>
     <script src="/assets/dist/js/app-style-switcher.js"></script>
     <script src="/assets/dist/js/feather.min.js"></script>
     <script src="/assets/admin/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
